@@ -3,6 +3,7 @@ import urllib.request
 import PyPDF2
 import tempfile
 import sqlite3
+from datetime import datetime
 
 def main(url):
     # Download data
@@ -43,8 +44,11 @@ def extractincidents(incident_data):
             row_data = [page_data[j:j+5]]
             for d in row_data:
                 if(len(d)==5):
-                    pdf_data.append(d)
+                    try:
+                        j=datetime.strptime(d[3],"%m/%d/%Y %H:%M")
 
+                    except ValueError as exception:
+                        pdf_data.append(d)
 
     return pdf_data
 
