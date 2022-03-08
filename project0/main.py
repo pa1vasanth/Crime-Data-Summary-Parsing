@@ -62,10 +62,6 @@ def extractincidents(incident_data):
         if(time(page_data[-5])==True):
             row_data=page_data[-5:]
             pdf_data.append(row_data)
-                    
-
-
-    print(pdf_data)
     return pdf_data
 
 
