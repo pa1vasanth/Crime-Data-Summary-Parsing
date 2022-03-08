@@ -36,20 +36,36 @@ def extractincidents(incident_data):
     pdfReader = PyPDF2.pdf.PdfFileReader(fp)
     page_count =  pdfReader.getNumPages()
     pdf_data = []
+    def time(string):
+        string=str(string)
+        format="%m/%d/%Y %H:%M"
+        try:
+            res = bool(datetime.strptime(string, format))
+        except ValueError:
+            res = False
+        return res
     for i in range(page_count):
         page_data = pdfReader.getPage(i).extractText()
         page_data = page_data.replace(" \n"," ")
         page_data=page_data.split('\n')
-        for j in range(0, len(page_data), 5):
-            row_data = [page_data[j:j+5]]
-            for d in row_data:
-                if(len(d)==5):
-                    try:
-                        j=datetime.strptime(d[3],"%m/%d/%Y %H:%M")
+        if(i==0):
+            page_data=page_data[5:-3]
+        if(i==(page_count-1)):
+            page_data=page_data[:-2]
+        else:
+            page_data=page_data[:-1]
 
-                    except ValueError as exception:
-                        pdf_data.append(d)
+        for j in range(0, (len(page_data)-5), 5):
+            if(((time(page_data[j])==True)) and ((time(page_data[j+5])==True))):
+                    row_data = page_data[j:j+5]
+                    pdf_data.append(row_data)
+        if(time(page_data[-5])==True):
+            row_data=page_data[-5:]
+            pdf_data.append(row_data)
+                    
 
+
+    print(pdf_data)
     return pdf_data
 
 
@@ -75,7 +91,7 @@ def populatedb(db,incidents):
 def status(db):
      con = sqlite3.connect(db)
      cur = con.cursor()
-     cur.execute('''SELECT nature ||'|'|| count(*) FROM incidents GROUP BY nature''')
+     cur.execute('''SELECT nature ||'|'|| count(*) FROM incidents GROUP BY nature ORDER BY count(nature) DESC, nature ASC''')
      result = cur.fetchall()
      for row in result:
         print(row[0])
