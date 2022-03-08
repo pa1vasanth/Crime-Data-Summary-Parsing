@@ -21,7 +21,7 @@ eg: url=""https://www.normanok.gov/sites/default/files/documents/2022-02/2022-02
 
 The cd is cs5293sp22-Project0; I'm listing project0 for the rootpath.
 
-It will print the list of incident nature along with frequency of occurence in the aplhabetical order(numbers ahead of alphabets) of the nature
+It will print the list of incident nature along with frequency of occurence in the descending order of the nature count (if 2 elements has same count then alphabet order)
 
 
 Required Python Packages
@@ -49,9 +49,11 @@ Extract Incidents: extractincidents()
 1. This function takes object data as input which is returned from fetch incidents.
 2. In this function a temperory file is created and data is written to temporary file.
 3. Using PyPDF2 the temporary file will be open and extrach text data.
-4. As some rows doesnt contain all values so i'm cleaning the data by verifying whether listof row contain 5 elements or not.
-5. In some rows Date/Time is replacing the nature values, checking the string is having nature incidents and then adding that rows to pdfdata.
-5. This function return the lists; In the lists each list value is also a list and this  list indicates each incident row.
+4. I have created a function which we have to input a string and it will tell whether the string is Date/Time format.
+5. Using that function I'm cleaning the data, the eachdata/time interval will occur after 5 VALUES
+6. The rows which are satisfying the data will include in the pdfdata 
+7. This function return the lists; In the lists each list value is also a list and this  list indicates each incident row.
+8. I'm facing an issue some incidents data is missing because of the logic I have used.
 
 Sqlite Database creation: createdb()
 1. This function takes lists as input.
@@ -76,6 +78,10 @@ Assumptions:
 Errors:
 1. Faced Indentation problem, It got solved by autopep8 command
 2. Faced No project0 module during in test file, It got solved by using importing the sys
+
+Test file
+1. The test_download.py file contain all the test cases.
+2.When executed it runs every test case with the main file in project0 and returns the output whether it passed or failed.
 
 References:
 1. https://stackoverflow.com/questions/11542930/inserting-an-array-into-sqlite3-python
