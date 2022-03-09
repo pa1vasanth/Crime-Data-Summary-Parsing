@@ -49,11 +49,12 @@ Extract Incidents: extractincidents()
 1. This function takes object data as input which is returned from fetch incidents.
 2. In this function a temperory file is created and data is written to temporary file.
 3. Using PyPDF2 the temporary file will be open and extrach text data.
-4. I have created a function which we have to input a string and it will tell whether the string is Date/Time format.
-5. Using that function I'm cleaning the data, the eachdata/time interval will occur after 5 VALUES
-6. The rows which are satisfying the data will include in the pdfdata 
-7. This function return the lists; In the lists each list value is also a list and this  list indicates each incident row.
-8. I'm facing an issue some incidents data is missing because of the logic I have used.
+4. Filtered the data(unnecessary) at the starting of the pdf and end of pdf and end of each page.
+5. I have created a function which we have to input a string and it will tell whether the string is Date/Time format.
+6. Using that function I'm cleaning the data, the eachdata/time interval will occur after 5 VALUES
+7. The rows which are satisfying the data will include in the pdfdata 
+8. This function return the lists; In the lists each list value is also a list and this  list indicates each incident row.
+9. I'm facing an issue some incidents data is missing because of the logic I have used.
 
 Sqlite Database creation: createdb()
 1. This function takes lists as input.
